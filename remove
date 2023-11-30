@@ -1,0 +1,26 @@
+# from collections import Counter
+# class Solution:
+#     def removeOuterParentheses( s: str) -> str:
+#         p1 = 0
+#         p2 = 0
+#         out = ""
+#         while p2<len(s):
+#             freq = Counter(s[p1:p2+1])
+#             if freq["("]==freq[")"]:
+#                 out+=s[p1+1:p2]
+#                 p1 = p2
+#             else:
+#                 p2+=1
+#         return out
+#     print(removeOuterParentheses("(()())(())(()(()))"))
+from random import choice
+x = [choice("()") for i in range(10**4)]
+x= "".join(x)
+leng = len(x)
+c = x.count(")")
+if c<leng/2:
+    x+=")"*(leng//2-c)
+else:
+    x+="("*(c-leng//2)
+print(x)
+print("")

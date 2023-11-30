@@ -1,36 +1,29 @@
-# class Solution:
-#     def trap( height: list[int]) -> int:
-#         next_mx = [max(height[i+1:]) for i in range(len(height)-1)]
-#         # print(next_mx)
-#         start = 0
-#         end = 1
-#         leng = len(height)
-#         total = 0
-#         while start<leng:
-#             block_area = 0
-#             while end<leng:
-#                 # print(height[start]>height[end])
-#                 if height[start]>height[end] and end<leng-1:
-#                     block_area+=height[end]
-#                     end+=1
-#                     # print("this is the block area",block_area)
-#                 else:
-#                     # print(start,end,height[start],height[end])
-#                     total+=min(height[start],next_mx[start])*(end-start-1)
-#                     # print(total)
-#                     total-=block_area
-#                     # print("this is the total:",total)
-#                     block_area = 0
-#                     start=end
-#                     end+=1
-#             start+=1
-#             end = start
-#         # if end==leng and height[end-1]<height[temp]:
-#         #         print("this is te condition")
-#         return total
-#     print(trap(height = [0,1,0,2,1,0,1,3,2,1,2,1]))
+class Solution:
+    def trap(height: list[int]) -> int:
+        length = len(height)
+        if length == 0:
+            return 0
+        left_max = [0] * length
+        right_max = [0] * length
+        left_max[0] = height[0]
+        print(height)
+        for i in range(1, length):
+            left_max[i] = max(left_max[i-1], height[i])
+        right_max[length-1] = height[length-1]
+        for i in range(length-2, -1, -1):
+            right_max[i] = max(right_max[i+1], height[i])
+        total = 0
+        print(left_max)
+        print(right_max)
+        for i in range(length):
+            water_level = min(left_max[i], right_max[i])
+            trapped_water = water_level - height[i]
+            total += trapped_water
+            print(total)
+        return total
+    print(trap(height = [0,1,0,2,1,0,1,3,2,1,2,1]))
     
     
-from random import randint
-x = [randint(0,100) for i in range(2*10**4)]
-print(x)
+# from random import randint
+# x = [randint(0,10000) for i in range(2*10**4)]
+# print(x)
